@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wusw.mapper.TUserLabelMapper" >
+    <insert id="batchAddUserlabel" parameterType="java.util.List">
+        insert into t_user_label  (id,name,count)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+          ( #{item.id}, #{item.name}, #{item.count} )
+        </foreach>
+    </insert>
+    
+    <insert id="addUserlabel" parameterType="com.wusw.dto.TUserLabelDto">
+        insert into t_user_label  (id,name)
+        values ( #{id}, #{name} )
+    </insert>
+    
+    <update id="modifyUserlabel" parameterType="com.wusw.dto.TUserLabelDto">
+        update t_user_label set name=#{name}
+        where id=#{id}
+    </update>
+    
+    <delete id="removeUserlabel" parameterType="long">
+        delete from t_user_label where id=#{id}
+    </delete>
+    
+    <delete id="deleteAllUserlabel">
+        delete from t_user_label
+    </delete>
+    
+    <select id="getAllUserlabel" resultType="com.wusw.dto.TUserLabelDto">
+        select * from t_user_label
+    </select>
+</mapper>

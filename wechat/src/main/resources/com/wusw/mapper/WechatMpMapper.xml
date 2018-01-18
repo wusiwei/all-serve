@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wusw.mapper.WechatMpMapper" >
+    <insert id="batchAddUserlabel" parameterType="java.util.List">
+        insert into t_user_label  (id,name,count)
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+          ( #{item.id}, #{item.name}, #{item.count} )
+        </foreach>
+    </insert>
+    <delete id="deleteAllUserlabel">
+        delete from t_user_label;
+    </delete>
+</mapper>

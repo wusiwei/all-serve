@@ -1,0 +1,41 @@
+server:
+  port: 8890
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://ckapi:ckapipassword@127.0.0.1:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread: 
+            timeoutInMilliseconds: 5000
+    
+spring:
+    application:
+        name: accredit 
+    redis:
+        database: 0
+        host: 127.0.0.1
+        port: 6379
+        password: 
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+        timeout: 0
+
+     
+wx: 
+    vipcn: 
+        accessTokenPath: https://api.weixin.qq.com/cgi-bin/token
+        jsapiTicketPath: https://api.weixin.qq.com/cgi-bin/ticket/getticket
+        appid: appid
+        secret: secret
+    oauth2: 
+        accessTokenPath: https://api.weixin.qq.com/sns/oauth2/access_token

@@ -1,0 +1,56 @@
+server:
+  port: 8892
+
+eureka:
+  client:
+    serviceUrl: 
+      defaultZone: http://ckapi:ckapipassword@127.0.0.1:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread: 
+            timeoutInMilliseconds: 5000
+                
+spring:
+    application:
+        name: wechat
+    datasource:
+        name: user
+        url: jdbc:mysql://127.0.0.1:3306/wechat?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: 123456
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20 
+ 
+wechat:
+   mp: 
+     tags:
+       createPath: https://api.weixin.qq.com/cgi-bin/tags/create
+       getPath: https://api.weixin.qq.com/cgi-bin/tags/get
+       deletePath: https://api.weixin.qq.com/cgi-bin/tags/delete
+       updatePath: https://api.weixin.qq.com/cgi-bin/tags/update
+     menu: 
+       createPath: https://api.weixin.qq.com/cgi-bin/menu/create
+       addconditional: https://api.weixin.qq.com/cgi-bin/menu/addconditional
+       delconditional: https://api.weixin.qq.com/cgi-bin/menu/delconditional
+ 
+ 
+        

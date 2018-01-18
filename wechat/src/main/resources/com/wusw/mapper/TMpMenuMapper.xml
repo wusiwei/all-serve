@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wusw.mapper.TMpMenuMapper" >
+    <resultMap id="BaseResultMap" type="com.wusw.dto.TMpMenuDto">
+	    <id column="id" jdbcType="BIGINT" property="id" />
+	    <result column="menu_type" jdbcType="VARCHAR" property="type" />
+	    <result column="menu_name" jdbcType="VARCHAR" property="name" />
+	    <result column="menu_key" jdbcType="VARCHAR" property="key" />
+	    <result column="url" jdbcType="VARCHAR" property="url" />
+	    <result column="media_id" jdbcType="VARCHAR" property="media_id" />
+	    <result column="appid" jdbcType="VARCHAR" property="appid" />
+	    <result column="pagepath" jdbcType="VARCHAR" property="pagepath" />
+	    <result column="sub_button" jdbcType="INTEGER" property="sub_button" />
+	    <result column="parent_id" jdbcType="BIGINT" property="parent_id" />
+	    <result column="tag_id" jdbcType="INTEGER" property="tag_id" />
+	    <result column="menuid" jdbcType="VARCHAR" property="menuid" />
+	    <collection property="subMenuDtoList" column="id" select="selectSubMenuDtoList" ofType="com.wusw.dto.TMpMenuDto"></collection>
+    </resultMap>
+    
+    <resultMap id="subMenuMap" type="com.wusw.dto.TMpMenuDto">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="menu_type" jdbcType="VARCHAR" property="type" />
+        <result column="menu_name" jdbcType="VARCHAR" property="name" />
+        <result column="menu_key" jdbcType="VARCHAR" property="key" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="media_id" jdbcType="VARCHAR" property="media_id" />
+        <result column="appid" jdbcType="VARCHAR" property="appid" />
+        <result column="pagepath" jdbcType="VARCHAR" property="pagepath" />
+        <result column="sub_button" jdbcType="INTEGER" property="sub_button" />
+        <result column="parent_id" jdbcType="BIGINT" property="parent_id" />
+        <result column="tag_id" jdbcType="INTEGER" property="tag_id" />
+        <result column="menuid" jdbcType="VARCHAR" property="menuid" />
+    </resultMap>
+    
+    <select id="getMpMenuByTagId" parameterType="int" resultMap="BaseResultMap">
+        select * from t_mp_menu where tag_id=#{tagId} and parent_id is null
+    </select>
+    
+    <select id="selectSubMenuDtoList" resultMap="subMenuMap" parameterType="java.lang.Long">
+        select * from t_mp_menu where parent_id=#{id}
+    </select>
+    
+    <insert id="batchAddMpMenu" parameterType="com.wusw.dto.TMpMenuDto">
+        insert into t_mp_menu  (menu_type,menu_name,menu_key,url,media_id,appid,pagepath,sub_button,parent_id,tag_id,menuid)
+        values
+        <foreach collection="subMenuDtoList" item="item" index="index" separator="," >
+          ( #{item.type}, #{item.name}, #{item.key}, #{item.url} , #{item.media_id} , #{item.appid} , #{item.pagepath} 
+            , #{item.sub_button} , #{id} , #{item.tag_id} , #{menuid})
+        </foreach>
+    </insert>
+    
+    <insert id="addMpMenu" parameterType="com.wusw.dto.TMpMenuDto">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+          SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_mp_menu  (menu_type,menu_name,menu_key,url,media_id,appid,pagepath,sub_button,parent_id,tag_id,menuid)
+        values  ( #{type}, #{name}, #{key}, #{url} , #{media_id} , #{appid} , #{pagepath} , #{sub_button} , #{parent_id} , #{tag_id} , #{menuid})
+    </insert>
+    
+    <delete id="delMpMenuByMenuid" parameterType="string">
+        delete from t_mp_menu where menuid=#{menuid}
+    </delete>
+    
+    <delete id="delDefaultMpMenu">
+        delete from t_mp_menu where menuid="" or menuid is null
+    </delete>
+</mapper>

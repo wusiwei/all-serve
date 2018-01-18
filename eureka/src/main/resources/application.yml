@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka
+
+security:
+  user:
+    name: ckapi
+    password: ckapipassword
+eureka:
+  server:
+    enableSelfPreservation: true
+  instance:
+    hostname: 127.0.0.1
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://ckapi:ckapipassword@${eureka.instance.hostname}:${server.port}/eureka/
