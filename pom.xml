@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.wusw</groupId>
-  <artifactId>wusw</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  
-  <name>wusw</name>
-  <url>http://maven.apache.org</url>
+	<groupId>com.wusw</groupId>
+	<artifactId>wusw</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-  <parent>
-	 <groupId>org.springframework.boot</groupId>
-	 <artifactId>spring-boot-starter-parent</artifactId>
-	 <version>1.5.8.RELEASE</version>
-	 <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-	
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	<java.version>1.8</java.version>
-  </properties>
-  
-  <dependencyManagement>
-	 <dependencies>
-	    <dependency>
-	      <groupId>org.springframework.cloud</groupId>
-	      <artifactId>spring-cloud-netflix</artifactId>
-	      <version>1.3.5.RELEASE</version>
-	      <type>pom</type>
-	      <scope>import</scope>
-	    </dependency>
-	 </dependencies>
-  </dependencyManagement>
-	
-  <modules>
-    <module>eureka</module>
-    <module>accredit</module>
-    <module>zuul</module>
-    <module>coupon</module>
-    <module>user</module>
-    <module>order</module>
-    <module>product</module>
-    <module>wechat</module>
-    <module>stock</module>
-  </modules>
+	<name>wusw</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+
+		<spring-boot.version>2.2.6.RELEASE</spring-boot.version>
+		<spring-cloud-dependencies.version>Hoxton.SR3</spring-cloud-dependencies.version>
+		<spring-cloud-alibaba-dependencies.version>2.2.1.RELEASE</spring-cloud-alibaba-dependencies.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-parent</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>eureka</module>
+		<module>accredit</module>
+		<module>zuul</module>
+		<module>coupon</module>
+		<module>user</module>
+		<module>order</module>
+		<module>product</module>
+		<module>wechat</module>
+		<module>stock</module>
+	</modules>
 </project>
